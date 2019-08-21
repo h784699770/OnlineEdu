@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.online.college.core.course.dao.CourseBuyDao">
+
+	<resultMap id="BeanResultMap" type="com.online.college.core.course.domain.CourseBuy" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId"  jdbcType="INTEGER" />
+		<result column="course_id" property="courseId"  jdbcType="INTEGER" />
+		<result column="price" property="price"  jdbcType="INTEGER" />
+		<result column="create_time" property="createTime"  jdbcType="DATE" />
+		<result column="create_user" property="createUser"  jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"  jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser"  jdbcType="VARCHAR" />
+		<result column="del" property="del"  jdbcType="TINYINT" />
+		
+		<result column="header" property="header"  jdbcType="VARCHAR" />
+		<result column="course_name" property="courseName"  jdbcType="VARCHAR" />
+	</resultMap> 
+
+
+	<sql id="All_Columns">
+		user_id, course_id, price, create_time, create_user, update_time, 
+		update_user, del, id 
+	</sql>
+
+	<select id="getById" parameterType="java.lang.Long" resultType="com.online.college.core.course.domain.CourseBuy">
+		SELECT 
+		<include refid="All_Columns"  />
+		FROM t_course_buy
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<insert id="create" parameterType="com.online.college.core.course.domain.CourseBuy" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+		INSERT INTO t_course_buy
+		( user_id, course_id, price, create_time, create_user, update_time, 
+		update_user, del, id  ) 
+		VALUES 
+		( #{userID, jdbcType=INTEGER}, #{courseID, jdbcType=INTEGER}, #{price, jdbcType=INTEGER}, #{createTime, jdbcType=DATE}, #{createUser, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP}, 
+		#{updateUser, jdbcType=VARCHAR}, #{del, jdbcType=TINYINT}, #{id, jdbcType=VARCHAR} ) 
+	</insert>
+
+</mapper>
